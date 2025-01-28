@@ -25,9 +25,9 @@ function List({ boardId }) {
                     <button className="delete-list" onClick={() => handleDeleteList(list.id)}>X</button>
                  </div>
                     <div className="list-card">
-                       <Card listId={list.id} />
+                       <Card listId={list.id}/>
                     </div>
-                 <AddCardButton listId={list.id} />
+                 <AddCardButton listId={list.id}/>
              </div>
             ))}
         </div>

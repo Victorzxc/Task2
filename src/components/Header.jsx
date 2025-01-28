@@ -4,8 +4,8 @@ function Header() {
     return (
         <header>
             <Link to="/">
-                <span className="material-symbols-outlined">
-                  sentiment_satisfied_alt
+                <span class="material-symbols-outlined">
+                    home
                 </span>
             </Link>
         </header>

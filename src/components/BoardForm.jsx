@@ -34,7 +34,7 @@ function BoardForm() {
            {showForm && (
               <div className="board-form-wrapper">
                  <form onSubmit={handleSubmit} className="board-form">
-                     <input type="text" placeholder="Название доски" value={title} onChange={(e) => setTitle(e.target.value)}/>
+                     <input type="text" placeholder="Название доски"  maxLength={30} value={title} onChange={(e) => setTitle(e.target.value)}/>
                       <div className="buttons-wrapper">
                         <button type="submit" className="button save">Сохранить</button>
                         <button type="button" className="button cancel" onClick={handleCloseForm}>Отменить</button>

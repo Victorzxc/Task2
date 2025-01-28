@@ -19,7 +19,8 @@ function BoardCard() {
 
    return (
      <div className="board-card">
-         <h2>{board.title}</h2>
+         <h2>{board.title}
+         </h2>
          <AddListButton boardId={boardId} />
         <div className="board-lists">
             <List boardId={boardId} />

@@ -15,6 +15,8 @@ function BoardList() {
     return (
       <div className="board-list">
          <BoardForm />
+         
+         <div className="board-items">
           {boards.map((board) => (
             <div key={board.id} className="board-item">
                <Link to={`/board/${board.id}`}>
@@ -23,6 +25,7 @@ function BoardList() {
                 <button onClick={() => handleDeleteBoard(board.id)} className="delete-board">X</button>
             </div>
           ))}
+         </div>
       </div>
     );
   }

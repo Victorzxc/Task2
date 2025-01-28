@@ -1,7 +1,7 @@
-import { configureStore } from "@reduxjs/toolkit";
-import boardsReducer from './boardsSlice'
-import listsReducer from './listsSlice'
-import cardsReducer from './cardsSlice'
+import { configureStore } from '@reduxjs/toolkit';
+import boardsReducer from './boardsSlice';
+import listsReducer from './listsSlice';
+import cardsReducer from './cardsSlice';
 
 const store = configureStore({
     reducer: {

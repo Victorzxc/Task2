@@ -1,0 +1,195 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+   padding: 0;
+  }
+
+ .board-list {
+     display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+ }
+
+ .board-item {
+    background-color: #f0f0f0;
+    padding: 10px;
+     margin: 10px;
+    border-radius: 5px;
+     width: 200px;
+     display: flex;
+   justify-content: space-between;
+ }
+.delete-board {
+   cursor: pointer;
+    border: none;
+   background: transparent;
+ }
+
+.board-card {
+   padding: 20px;
+}
+
+.board-lists {
+   display: flex;
+  flex-wrap: wrap;
+}
+
+ .list-item {
+  background-color: #fff;
+    padding: 10px;
+     margin: 10px;
+    border-radius: 5px;
+     width: 300px;
+}
+.list-header {
+   display: flex;
+     align-items: center;
+     justify-content: space-between;
+}
+.delete-list {
+    border: none;
+    background: transparent;
+     cursor: pointer;
+}
+
+.card-item {
+     background-color: #e0e0e0;
+     padding: 10px;
+    margin: 5px 0;
+      border-radius: 5px;
+    display: flex;
+     justify-content: space-between;
+     align-items: center;
+  }
+.card-actions {
+    display: flex;
+    align-items: center;
+}
+.delete-card {
+    cursor: pointer;
+     border: none;
+    background: transparent;
+}
+
+
+header {
+    padding: 10px;
+     background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+ }
+.add-board-button,
+ .add-list-button,
+.add-card-button{
+     background-color: #4CAF50; /* Зеленый */
+    border: none;
+    color: white;
+     padding: 10px 15px;
+    text-align: center;
+     text-decoration: none;
+   display: inline-block;
+   font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+     border-radius: 4px;
+     transition: all 0.3s ease;
+ }
+.add-board-button:hover,
+.add-list-button:hover,
+ .add-card-button:hover {
+     background-color: #367c3b;
+}
+.board-form-wrapper, .list-form-wrapper, .card-form-wrapper{
+     background-color: #f0f0f0;
+    padding: 10px;
+     margin: 10px;
+    border-radius: 5px;
+}
+.board-form, .list-form, .card-form{
+     display: flex;
+    flex-direction: column;
+     gap: 10px;
+}
+.input-title{
+     border: none;
+     padding: 5px;
+   border-bottom: 1px solid gray;
+    outline: none;
+ }
+.buttons-wrapper {
+    display: flex;
+   justify-content: flex-end;
+   gap: 5px;
+ }
+.button {
+   padding: 8px 12px;
+     border-radius: 4px;
+     cursor: pointer;
+   border: none;
+ }
+.button.save {
+     background-color: #4CAF50;
+    color: #fff;
+}
+ .button.cancel{
+     background-color: #ccc;
+}
+.lists {
+    display: flex;
+}
+.list-card {
+     min-height: 50px;
+}
+.checkbox-container {
+     display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    margin-right: 5px;
+   cursor: pointer;
+}
+.checkbox-container input {
+    position: absolute;
+     opacity: 0;
+    cursor: pointer;
+      height: 0;
+     width: 0;
+}
+.checkmark {
+     position: absolute;
+    top: 0;
+    left: 0;
+   height: 18px;
+   width: 18px;
+     background-color: #eee;
+    border: 1px solid #ccc;
+ }
+.checkbox-container input:checked ~ .checkmark {
+    background-color: #4CAF50;
+ }
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+ }
+.checkbox-container input:checked ~ .checkmark:after {
+   display: block;
+}
+.checkbox-container .checkmark:after {
+  left: 6px;
+     top: 3px;
+   width: 5px;
+   height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+     -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.material-symbols-outlined {
+   font-variation-settings:
+        'FILL' 0,
+       'wght' 400,
+        'GRAD' 0,
+        'opsz' 48;
+       cursor: pointer;
+}

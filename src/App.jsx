@@ -1,20 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import BoardList from './components/BoardList';
-import BoardCard from './components/BoardCard';
-import Header from './components/Header';
-
+import { Provider } from 'react-redux';
+import { store, persistor } from './redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import AppRouter from "./AppRouter";
 
 function App() {
-    return (
-    <Router>
-        <Header />
-        <Routes>
-            <Route path="/" element={<BoardList />} />
-            <Route path="/board/:boardId" element={<BoardCard />} />
-        </Routes>
-    </Router>
-    );
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <AppRouter/>
+        </Router>
+      </PersistGate>
+    </Provider>
+  );
 }
 
 export default App;

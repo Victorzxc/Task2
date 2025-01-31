@@ -13,6 +13,7 @@ h2{
   border-radius: 5px;
   margin: 20px;
   height: min-content;
+  width: min-content;
 }
 a{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
@@ -57,9 +58,11 @@ input{
 .board-card {
   padding: 10%;
   display: flex;
-  justify-content: space-between;
-   
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
 
 .board-lists {
   display: flex;

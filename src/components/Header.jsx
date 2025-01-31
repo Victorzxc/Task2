@@ -4,7 +4,7 @@ function Header() {
     return (
         <header>
             <Link to="/">
-                <span class="material-symbols-outlined">
+                <span className="material-symbols-outlined">
                     home
                 </span>
             </Link>

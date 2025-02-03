@@ -7,6 +7,6 @@ import "./styles/style.css";
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-        <App />
-   </Provider>
+    <App />
+  </Provider>
 );

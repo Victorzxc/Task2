@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {generateId} from '../utils/id.js';
+import { generateId } from '../utils/id.js';
 
 const initialState = {
     boards: [],
@@ -10,10 +10,10 @@ const boardsSlice = createSlice({
     initialState,
     reducers: {
         addBoard: (state, action) => {
-            state.boards.push({id: generateId(), title: action.payload});
+            state.boards.push({ id: generateId(), title: action.payload });
         },
         updateBoard: (state, action) => {
-            const {id, title} = action.payload;
+            const { id, title } = action.payload;
             const board = state.boards.find((board) => board.id === id);
             if (board) {
                 board.title = title;

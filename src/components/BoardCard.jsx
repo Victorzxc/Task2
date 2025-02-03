@@ -6,32 +6,33 @@ import AddListButton from "./AddListButton";
 
 
 function BoardCard() {
-    const { boardId } = useParams();
-    const board = useSelector(state => state.boards.boards.find(board => board.id === boardId));
+   const { boardId } = useParams();
+   const board = useSelector(state => state.boards.boards.find(board => board.id === boardId));
 
-  useEffect(() => {
-     console.log("Board ID in BoardCard:", boardId);
-    }, [boardId]);
+   useEffect(() => {
+      console.log("Board ID in BoardCard:", boardId);
+   }, [boardId]);
 
-    if(!board) {
-       return <div>Board not found</div>;
-    }
+   if (!board) {
+      return <div>Доска не найдена</div>;
+   }
 
-    return (
+   return (
       <div className="board-card">
          <div>
             <h2>{board.title}
             </h2>
          </div>
          <div>
-         <AddListButton boardId={boardId} />
 
-         <div className="board-lists">
-            <List boardId={boardId} />
-         </div>
+            <AddListButton boardId={boardId} />
+
+            <div className="board-lists">
+               <List boardId={boardId} />
+            </div>
          </div>
       </div>
-     );
+   );
 }
 
 

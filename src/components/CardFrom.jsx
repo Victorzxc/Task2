@@ -1,22 +1,41 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addCard } from '../redux/cardsSlice';
+import { isCardTitleUnique } from '../utils/validation';
 
 function CardForm({ listId, setShowForm }) {
     const [title, setTitle] = useState('');
+    const [error, setError] = useState('');
     const dispatch = useDispatch();
+    const cardTitles = useSelector(state => state.cards.cardTitles);
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (title.trim()) {
-           dispatch(addCard({ listId, title }));
-            setTitle('');
-           setShowForm(false);
+        if (!title.trim()) {
+            setError('Заголовок не может быть пустым');
+            return;
         }
+
+        const forbiddenCharsRegex = /["'`<>;:().,]/;
+        if (forbiddenCharsRegex.test(title)) {
+            setError('Заголовок содержит недопустимые символы');
+            return;
+        }
+
+        if (!isCardTitleUnique(cardTitles, title)) {
+            setError('Название уже существует');
+            return;
+        }
+        dispatch(addCard({ listId, title }));
+        setTitle('');
+        setError('');
+        setShowForm(false);
     };
+
     const handleCloseForm = () => {
-       setShowForm(false);
-       setTitle('');
+        setShowForm(false);
+        setTitle('');
+        setError('');
     };
 
     return (
@@ -28,6 +47,7 @@ function CardForm({ listId, setShowForm }) {
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                 />
+                {error && <div className="error">{error}</div>}
                 <div className="buttons-wrapper">
                     <button type="submit" className="button save">
                         Сохранить

@@ -4,8 +4,8 @@ import Card from "./Card";
 import { deleteList, updateList } from '../redux/listsSlice';
 import AddCardButton from './AddCardButton';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { moveCard } from '../redux/listsSlice';
 import { createSelector } from '@reduxjs/toolkit';
+import { moveCard } from '../redux/cardsSlice';
 
 
 function List({ boardId }) {
@@ -23,7 +23,6 @@ function List({ boardId }) {
         if (source.droppableId !== destination.droppableId) {
             dispatch(moveCard({
                 cardId: draggableId,
-                fromListId: source.droppableId,
                 toListId: destination.droppableId
             }))
         }
@@ -33,7 +32,7 @@ function List({ boardId }) {
         dispatch(deleteList(listId));
     };
     const handleRenameList = (listId, title) => {
-        dispatch(updateList({id: listId, title}));
+        dispatch(updateList({ id: listId, title }));
     }
 
     return (
@@ -42,7 +41,12 @@ function List({ boardId }) {
                 {lists.map((list) => (
                     <div key={list.id} className="list-item">
                         <div className="list-header">
-                            <input type="text"  className="input-title" defaultValue={list.title} onBlur={(e) => handleRenameList(list.id, e.target.value)} />
+                            <input
+                                type="text"
+                                className="input-title"
+                                defaultValue={list.title}
+                                onBlur={(e) => handleRenameList(list.id, e.target.value)}
+                            />
                             <button className="delete-list" onClick={() => handleDeleteList(list.id)}>X</button>
                         </div>
                         <Droppable droppableId={String(list.id)}>

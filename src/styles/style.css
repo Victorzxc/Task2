@@ -1,28 +1,30 @@
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
-h2{
+h2 {
   border-style: solid;
   font-size: 50px;
   border-width: 4px;
-  background-color: #61d3ba; 
+  background-color: #61d3ba;
   padding: 15px;
   border-radius: 5px;
   margin: 20px;
   height: min-content;
   width: min-content;
 }
-a{
+
+a {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   font-size: 30px;
   text-align: none;
   text-decoration: none;
   color: #000000;
 }
-input{
+
+input {
   font-size: 20px;
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
@@ -34,6 +36,11 @@ input{
 
 }
 
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
 
 
 .board-item {
@@ -45,10 +52,12 @@ input{
   display: flex;
   align-items: baseline;
 }
-.board-item:hover{
+
+.board-item:hover {
   box-shadow: 0 0 5px 5px #808080;
   transition: 70ms;
 }
+
 .delete-board {
   cursor: pointer;
   border: none;
@@ -57,7 +66,6 @@ input{
 
 .board-card {
   padding: 10%;
-  display: flex;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -76,11 +84,13 @@ input{
   width: 300px;
   box-shadow: 0px 0px 15px 12px #3d444641
 }
+
 .list-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+
 .delete-list {
   border: none;
   background: transparent;
@@ -88,24 +98,23 @@ input{
 }
 
 .card-item {
-  background-color: #e0e0e0;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 5px;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  margin: 5px 0;
 }
 
 .card-actions {
   display: flex;
   align-items: center;
+
 }
+
 .delete-card {
   cursor: pointer;
-  border: none;
+  border-radius: 10px;
+  border: 2px solid #808080;
+  font-size: 15px;
   background: transparent;
-  }
+}
 
 
 header {
@@ -115,18 +124,20 @@ header {
   justify-content: center;
   border-bottom: 1px solid #ccc;
 }
-.add-list-button{
+
+.add-list-button {
   width: 350px;
   font-size: 35px;
 }
-.add-board-button{
+
+.add-board-button {
   font-size: 50px;
 }
+
 .add-board-button,
-.add-list-button
-{
+.add-list-button {
   margin: 20px;
-  background-color: #61d3ba; 
+  background-color: #61d3ba;
   color: #666666;
   padding: 10px 15px;
   text-align: center;
@@ -141,9 +152,9 @@ header {
   border-color: #666666;
 }
 
-.add-card-button{
+.add-card-button {
   margin: 20px;
-  background-color: #61d3ba; 
+  background-color: #61d3ba;
   color: #666666;
   padding: 10px 15px;
   text-align: center;
@@ -158,36 +169,45 @@ header {
   border-width: 4px;
   border-color: #666666;
 }
+
 .add-board-button:hover,
 .add-list-button:hover,
 .add-card-button:hover {
-  background-color: #4a9181; 
+  background-color: #4a9181;
   color: #ffffff;
   border-color: #000000;
 
 }
-.board-form-wrapper, .card-form-wrapper, .list-form-wrapper{
-    background-color: #f0f0f0;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    width: 350px;
+
+.board-form-wrapper,
+.card-form-wrapper,
+.list-form-wrapper {
+  background-color: #f0f0f0;
+  padding: 10px;
+  margin: 10px;
+  border-radius: 5px;
+  width: 350px;
 }
 
-.card-form-wrapper{
+.card-form-wrapper {
   width: 260px;
 }
-.board-form, .list-form, .card-form{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+
+.board-form,
+.list-form,
+.card-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.input-title{
+
+.input-title {
   border: none;
   padding: 5px;
   border-bottom: 1px solid gray;
   outline: none;
- }
+}
+
 .buttons-wrapper {
   display: flex;
   justify-content: flex-end;
@@ -204,11 +224,12 @@ header {
 }
 
 .button.save {
-  background-color: #61d3ba; 
+  background-color: #61d3ba;
   font-size: 20px;
   color: #fff;
   width: 120px;
 }
+
 .button.save:hover,
 .button.cancel:hover {
   font-size: 15px;
@@ -217,11 +238,12 @@ header {
 }
 
 
-.button.cancel{
+.button.cancel {
   background-color: #ccc;
   font-size: 20px;
   width: 120px;
 }
+
 .lists {
   display: flex;
   flex-wrap: wrap;
@@ -233,62 +255,32 @@ header {
   border-color: transparent;
   padding: 12px;
   width: 970px;
-  
+
 }
+
 .list-card {
   min-height: 50px;
 }
 
 .checkbox-container {
-  display: inline-block;
-  position: relative;
-  padding-left: 25px;
-  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  margin: 5px;
   cursor: pointer;
 }
 
-.checkbox-container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-.checkmark {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 18px;
-  width: 18px;
-  background-color: #eee;
-  border: 1px solid #ccc;
-}
-.checkbox-container input:checked ~ .checkmark {
-  background-color: #61d3ba; 
+.card-item-elements {
+  display: flex;
+  padding: 10px;
+  background-color: #e0e0e0;
+  border-radius: 7px;
 }
 
-.checkmark:after {
-  content: "";
-  position: absolute;
-  display: none;
-}
-.checkbox-container input:checked ~ .checkmark:after {
-  display: block;
-}
-.checkbox-container .checkmark:after {
-  left: 6px;
-  top: 3px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-}
-
-.material-symbols-outlined{
+.material-symbols-outlined {
   color: #000000;
   font-size: 60px;
 }
 
+.card-item-done {
+  text-decoration: line-through;
+}

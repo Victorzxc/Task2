@@ -7,10 +7,10 @@ import Header from "./components/Header";
 function AppRouter() {
   return (
     <>
-      <Header /> {}
+      <Header /> { }
       <Routes>
-        <Route path="/" element={<BoardList />} />  {}
-        <Route path="/board/:boardId" element={<BoardCard />} /> {}
+        <Route path="/" element={<BoardList />} />  { }
+        <Route path="/board/:boardId" element={<BoardCard />} /> { }
       </Routes>
     </>
   );

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addBoard } from '../redux/boardsSlice';
+import { addBoard } from '../../redux/boardsSlice';
+import './styles.css';
 
 
 function BoardForm() {

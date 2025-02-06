@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles.css';
 
 function Checkbox({ id, isDone, onChange }) {
     const handleChange = (e) => {

@@ -22,36 +22,10 @@ const listsSlice = createSlice({
         deleteList: (state, action) => {
             state.lists = state.lists.filter(list => list.id !== action.payload);
         },
-        addCardIdToList: (state, action) => {
-            const { cardId, listId } = action.payload;
-            const list = state.lists.find((list) => list.id === listId);
-            if (list) {
-                list.cardIds.push(cardId)
-            }
-        },
-        removeCardIdFromList: (state, action) => {
-            const { cardId, listId } = action.payload;
-            const list = state.lists.find((list) => list.id === listId);
-            if (list) {
-                list.cardIds = list.cardIds.filter((id) => id !== cardId);
-            }
-        },
-        moveCard: (state, action) => {
-            const { cardId, fromListId, toListId } = action.payload;
-            const fromList = state.lists.find(list => list.id === fromListId);
-            const toList = state.lists.find(list => list.id === toListId);
-
-            if (fromList) {
-                fromList.cardIds = fromList.cardIds.filter(id => id !== cardId);
-            }
-            if (toList) {
-                toList.cardIds.push(cardId);
-            }
-        },
     },
 });
 
 
-export const { addList, updateList, deleteList, addCardIdToList, moveCard, removeCardIdFromList } = listsSlice.actions;
+export const { addList, updateList, deleteList } = listsSlice.actions;
 
 export default listsSlice.reducer;

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { addCard } from '../redux/cardsSlice';
-import { isCardTitleUnique } from '../utils/validation';
+import { addCard } from '../../redux/cardsSlice';
+import './styles.css';
+import { isCardTitleUnique } from '../../utils/validation';
 
 function CardForm({ listId, setShowForm }) {
     const [title, setTitle] = useState('');

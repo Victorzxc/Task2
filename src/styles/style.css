@@ -29,94 +29,6 @@ input {
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
-.board-list {
-  display: flex;
-  justify-content: space-between;
-  padding: 200px 400px;
-
-}
-
-.error {
-  color: red;
-  font-size: 12px;
-  margin-top: 5px;
-}
-
-
-.board-item {
-  background-color: #f0f0f0;
-  margin: 20px;
-  border-radius: 7px;
-  width: max-content;
-  padding: 20px;
-  display: flex;
-  align-items: baseline;
-}
-
-.board-item:hover {
-  box-shadow: 0 0 5px 5px #808080;
-  transition: 70ms;
-}
-
-.delete-board {
-  cursor: pointer;
-  border: none;
-  background: transparent;
-}
-
-.board-card {
-  padding: 10%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-
-.board-lists {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.list-item {
-  background-color: #fff;
-  margin: 10px;
-  border-radius: 5px;
-  width: 300px;
-  box-shadow: 0px 0px 15px 12px #3d444641
-}
-
-.list-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.delete-list {
-  border: none;
-  background: transparent;
-  cursor: pointer;
-}
-
-.card-item {
-  align-items: center;
-  margin: 5px 0;
-}
-
-.card-actions {
-  display: flex;
-  align-items: center;
-
-}
-
-.delete-card {
-  cursor: pointer;
-  border-radius: 10px;
-  border: 2px solid #808080;
-  font-size: 15px;
-  background: transparent;
-}
-
-
 header {
   padding: 10px;
   display: flex;
@@ -125,50 +37,7 @@ header {
   border-bottom: 1px solid #ccc;
 }
 
-.add-list-button {
-  width: 350px;
-  font-size: 35px;
-}
 
-.add-board-button {
-  font-size: 50px;
-}
-
-.add-board-button,
-.add-list-button {
-  margin: 20px;
-  background-color: #61d3ba;
-  color: #666666;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: flex;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  cursor: pointer;
-  border-radius: 7px;
-  transition: all 0.3s ease;
-  border-style: solid;
-  border-width: 7px;
-  border-color: #666666;
-}
-
-.add-card-button {
-  margin: 20px;
-  background-color: #61d3ba;
-  color: #666666;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: flex;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-  font-size: 20px;
-  cursor: pointer;
-  border-radius: 7px;
-  transition: all 0.3s ease;
-  border-style: solid;
-  border-width: 4px;
-  border-color: #666666;
-}
 
 .add-board-button:hover,
 .add-list-button:hover,
@@ -180,17 +49,12 @@ header {
 }
 
 .board-form-wrapper,
-.card-form-wrapper,
 .list-form-wrapper {
   background-color: #f0f0f0;
   padding: 10px;
   margin: 10px;
   border-radius: 5px;
   width: 350px;
-}
-
-.card-form-wrapper {
-  width: 260px;
 }
 
 .board-form,
@@ -201,12 +65,7 @@ header {
   gap: 10px;
 }
 
-.input-title {
-  border: none;
-  padding: 5px;
-  border-bottom: 1px solid gray;
-  outline: none;
-}
+
 
 .buttons-wrapper {
   display: flex;
@@ -244,43 +103,12 @@ header {
   width: 120px;
 }
 
-.lists {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-  border-style: solid;
-  border-radius: 20px;
-  background-color: aliceblue;
-  overflow: hidden;
-  border-color: transparent;
-  padding: 12px;
-  width: 970px;
 
-}
 
-.list-card {
-  min-height: 50px;
-}
 
-.checkbox-container {
-  width: 20px;
-  height: 20px;
-  margin: 5px;
-  cursor: pointer;
-}
 
-.card-item-elements {
-  display: flex;
-  padding: 10px;
-  background-color: #e0e0e0;
-  border-radius: 7px;
-}
 
-.material-symbols-outlined {
-  color: #000000;
-  font-size: 60px;
-}
 
-.card-item-done {
-  text-decoration: line-through;
-}
+
+
+

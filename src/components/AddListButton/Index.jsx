@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addList } from '../redux/listsSlice';
+import { addList } from '../../redux/listsSlice';
+import './styles.css';
 
 function AddListButton({ boardId }) {
    const [title, setTitle] = useState('');

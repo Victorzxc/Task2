@@ -1,5 +1,5 @@
 import React from 'react';
-import BoardForm from './BoardForm';
+import BoardForm from '../BoardForm/Index';
 
 
 function AddBoardButton() {

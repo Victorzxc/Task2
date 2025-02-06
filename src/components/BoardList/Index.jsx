@@ -1,8 +1,9 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import BoardForm from "./BoardForm";
-import { deleteBoard } from "../redux/boardsSlice";
+import BoardForm from "../BoardForm/Index";
+import { deleteBoard } from "../../redux/boardsSlice";
+import './styles.css';
 
 
 function BoardList() {

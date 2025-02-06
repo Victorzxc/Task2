@@ -58,8 +58,28 @@ const cardsSlice = createSlice({
         state.cards = state.cards.filter(card => card.id !== id)
       }
     },
+    deleteAllCardsFromList: (state, action) => {
+      const listId = action.payload;
+
+      const cardsToDelete = state.cards.filter(card => card.listId === listId);
+
+      state.cards = state.cards.filter(card => card.listId !== listId);
+
+      state.cardTitles = state.cardTitles.filter(title => !cardsToDelete.some(card => card.title === title));
+    },
+    updateCardOrder: (state, action) => {
+      const { listId, cardIds } = action.payload;
+
+      state.cards = state.cards.map(card => {
+        if (card.listId === listId) {
+          const newIndex = cardIds.indexOf(card.id);
+          return { ...card, order: newIndex };
+        }
+        return card;
+      }).sort((a, b) => a.order - b.order);
+    },
   },
 });
 
-export const { addCard, updateCard, deleteCard, moveCard } = cardsSlice.actions;
+export const { addCard, updateCard, deleteCard, deleteAllCardsFromList, moveCard, updateCardOrder } = cardsSlice.actions;
 export default cardsSlice.reducer;

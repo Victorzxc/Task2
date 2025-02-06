@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import List from './List';
-import AddListButton from "./AddListButton";
+import { useParams } from 'react-router-dom';
+import List from '../List/Index';
+import AddListButton from "../AddListButton/Index";
+import './styles.css';
 
 
 function BoardCard() {

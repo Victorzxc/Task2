@@ -1,0 +1,26 @@
+.board-list {
+    display: flex;
+    justify-content: space-between;
+    padding: 200px 400px;
+}
+
+.board-item {
+    background-color: #f0f0f0;
+    margin: 20px;
+    border-radius: 7px;
+    width: max-content;
+    padding: 20px;
+    display: flex;
+    align-items: baseline;
+}
+  
+.board-item:hover {
+    box-shadow: 0 0 5px 5px #808080;
+    transition: 70ms;
+}
+
+.delete-board {
+    cursor: pointer;
+    border: none;
+    background: transparent;
+  }

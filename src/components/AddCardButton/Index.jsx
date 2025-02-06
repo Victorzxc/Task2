@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import CardForm from "./CardFrom.jsx";
+import CardForm from "../CardForm/Index.jsx";
+import './styles.css';
 
 function AddCardButton({ listId }) {
     const [showForm, setShowForm] = useState(false);

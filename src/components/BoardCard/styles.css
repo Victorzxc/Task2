@@ -1,0 +1,12 @@
+.board-card {
+    padding: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.board-lists {
+    display: flex;
+    flex-wrap: wrap;
+}
+  

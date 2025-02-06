@@ -12,13 +12,6 @@ const boardsSlice = createSlice({
         addBoard: (state, action) => {
             state.boards.push({ id: generateId(), title: action.payload });
         },
-        updateBoard: (state, action) => {
-            const { id, title } = action.payload;
-            const board = state.boards.find((board) => board.id === id);
-            if (board) {
-                board.title = title;
-            }
-        },
         deleteBoard: (state, action) => {
             state.boards = state.boards.filter((board) => board.id !== action.payload);
         }
@@ -26,6 +19,6 @@ const boardsSlice = createSlice({
 });
 
 
-export const { addBoard, updateBoard, deleteBoard } = boardsSlice.actions;
+export const { addBoard, deleteBoard } = boardsSlice.actions;
 
 export default boardsSlice.reducer;

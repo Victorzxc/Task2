@@ -5,7 +5,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import classNames from 'classnames';
 import { updateCard, deleteCard } from '../../redux/cardsSlice';
 import Checkbox from '../Checkbox/Index';
-import { isCardTitleUnique } from '../../utils/validation';
+
 import './styles.css';
 
 function Card({ card, index, listId }) {
@@ -20,15 +20,8 @@ function Card({ card, index, listId }) {
 
   const cards = useSelector(state => selectCards(state, listId));
 
-  const handleRenameCard = (id, title, setTitle) => {
-    if (!isCardTitleUnique(cardTitles, title)) {
-      window.alert('Название уже существует');
-      const cardToUpdate = cards.find(card => card.id === id);
-      if (cardToUpdate) {
-        setTitle(cardToUpdate.title);
-      }
-      return;
-    }
+  const handleRenameCard = (id, title) => {
+
     const cardToUpdate = cards.find(card => card.id === id);
     if (cardToUpdate) {
       dispatch(updateCard({ id, title, isDone: cardToUpdate.isDone }));
@@ -91,7 +84,7 @@ function CardInput({ card, handleRenameCard, isDone }) {
       type="text"
       value={title}
       onChange={onChangeCustom}
-      onBlur={(e) => handleRenameCard(card.id, e.target.value, setTitle)}
+      onBlur={(e) => handleRenameCard(card.id, e.target.value)}
       className={classNames('input-title', { 'input-title-done': isDone })}
       disabled={isDone}
     />

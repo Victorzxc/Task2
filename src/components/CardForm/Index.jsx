@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addCard } from '../../redux/cardsSlice';
 import './styles.css';
-import { isCardTitleUnique } from '../../utils/validation';
+
 
 function CardForm({ listId, setShowForm }) {
     const [title, setTitle] = useState('');
@@ -23,10 +23,7 @@ function CardForm({ listId, setShowForm }) {
             return;
         }
 
-        if (!isCardTitleUnique(cardTitles, title)) {
-            setError('Название уже существует');
-            return;
-        }
+
         dispatch(addCard({ listId, title }));
         setTitle('');
         setError('');

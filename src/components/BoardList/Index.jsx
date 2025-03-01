@@ -1,9 +1,12 @@
 import React from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import BoardForm from "../BoardForm/Index";
 import { deleteBoard } from "../../redux/boardsSlice";
 import './styles.css';
+import AuthForm from '../AuthForm/AuthForm';
 
 
 function BoardList() {
@@ -13,8 +16,15 @@ function BoardList() {
   const handleDeleteBoard = (id) => {
     dispatch(deleteBoard(id))
   }
+  useEffect(() => {
+    axios.get("http://localhost:7000/board/boards")
+      .then(response => {
+        console.log(response)
+      });
+  }, [])
   return (
     <div className="board-list">
+
       <BoardForm />
 
       <div className="board-items">

@@ -9,6 +9,9 @@ function Header() {
                     home
                 </span>
             </Link>
+            <button onClick={localStorage.removeItem("priton")} >
+                Выйти
+            </button>
         </header>
     );
 }

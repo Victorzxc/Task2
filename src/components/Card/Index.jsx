@@ -16,7 +16,7 @@ function Card({ card, index, listId }) {
     (cards, listId) => cards.filter(card => card.listId === listId)
 
   );
-  const cardTitles = useSelector(state => state.cards.cardTitles);
+
 
   const cards = useSelector(state => selectCards(state, listId));
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addCard } from '../../redux/cardsSlice';
 import './styles.css';
 
@@ -8,7 +8,6 @@ function CardForm({ listId, setShowForm }) {
     const [title, setTitle] = useState('');
     const [error, setError] = useState('');
     const dispatch = useDispatch();
-    const cardTitles = useSelector(state => state.cards.cardTitles);
 
     const handleSubmit = (e) => {
         e.preventDefault();

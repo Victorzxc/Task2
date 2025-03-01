@@ -1,4 +1,11 @@
 .material-symbols-outlined {
-    color: #000000;
-    font-size: 60px;
-  }
+  color: #000000;
+  font-size: 60px;
+}
+
+button {
+  border: solid 5px;
+  border-radius: 13px;
+  cursor: pointer;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}

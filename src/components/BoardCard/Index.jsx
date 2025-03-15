@@ -4,37 +4,45 @@ import { useParams } from 'react-router-dom';
 import List from '../List/Index';
 import AddListButton from "../AddListButton/Index";
 import './styles.css';
-
+import axios from 'axios';
 
 function BoardCard() {
-   const { boardId } = useParams();
-   const board = useSelector(state => state.boards.boards.find(board => board.id === boardId));
+    const { boardId } = useParams();
+    const boards = useSelector(state => state.boards.boards);
+    const board = boards.find(board => board.id === boardId); 
 
-   useEffect(() => {
-      console.log("Board ID in BoardCard:", boardId);
-   }, [boardId]);
+    useEffect(() => {
+        console.log("Board ID in BoardCard:", boardId);
+    }, [boardId]);
 
-   if (!board) {
-      return <div>Доска не найдена</div>;
-   }
+    useEffect(() => {
+        axios.get("http://localhost:7000/board/boards", {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("priton")
+            }
+        })
+            .then(response => {
+                console.log(response)
 
-   return (
-      <div className="board-card">
-         <div>
-            <h2>{board.title}
-            </h2>
-         </div>
-         <div>
+    
+            });
+    }, []);
 
-            <AddListButton boardId={boardId} />
-
-            <div className="board-lists">
-               <List boardId={boardId} />
+    return (
+        <div className="board-card">
+            <div>
+                <h2>
+                    {board ? board.title : 'Loading...'}  
+                </h2>
             </div>
-         </div>
-      </div>
-   );
+            <div>
+                <AddListButton boardId={boardId} />
+                <div className="board-lists">
+                    <List boardId={boardId} />
+                </div>
+            </div>
+        </div>
+    );
 }
-
 
 export default BoardCard;

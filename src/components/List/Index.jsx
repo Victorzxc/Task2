@@ -3,12 +3,29 @@ import { useSelector, useDispatch } from 'react-redux';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { createSelector } from '@reduxjs/toolkit';
 import Card from "../Card/Index";
+import { useEffect } from 'react';
+import axios from 'axios';
 import AddCardButton from '../AddCardButton/Index';
 import { deleteList, updateList } from '../../redux/listsSlice';
 import { moveCard, deleteAllCardsFromList, updateCardOrder } from '../../redux/cardsSlice';
 import './styles.css';
+import { useState } from 'react';
 
 function List({ boardId }) {
+    const [list, setList] = useState([])
+    useEffect(() => {
+        axios.get(`http://localhost:7000/list/list?boardId=${boardId}`, {
+            headers: {
+                Authorization: "Bearer " + localStorage.getItem("priton")
+            }
+        })
+            .then(response => {
+                console.log(response)
+                setList(response.data)
+                console.table(response.data)
+            });
+    }, [])
+
     const dispatch = useDispatch();
 
     const selectLists = createSelector(
@@ -49,46 +66,31 @@ function List({ boardId }) {
         dispatch(deleteList(listId));
         dispatch(deleteAllCardsFromList(listId));
     };
-    
+
     const handleRenameList = (listId, title) => {
         dispatch(updateList({ id: listId, title }));
     }
 
     return (
         <div className="lists">
-            <DragDropContext
-                onDragEnd={(result) => {
-                    const list = lists.find(list => String(list.id) === result.source.droppableId);
-                    const cards = cardsByList.find(item => item.listId === list.id)?.cards || [];
-                    handleOnDragEnd(result, list.id, cards);
-                }}
-            >
-                {lists.map((list) => (
-                    <div key={list.id} className="list-item">
-                        <div className="list-header">
-                            <input
-                                type="text"
-                                className="input-title"
-                                defaultValue={list.title}
-                                onBlur={(e) => handleRenameList(list.id, e.target.value)}
-                            />
-                            <button className="delete-list" onClick={() => handleDeleteList(list.id)}>X</button>
-                        </div>
-                        <Droppable droppableId={String(list.id)}>
-                            {(provided) => (
-                                <div {...provided.droppableProps} ref={provided.innerRef} className="list-card">
-                                    {cardsByList.find(item => item.listId === list.id)?.cards
-                                        .map((card, index) => (
-                                            <Card key={card.id} card={card} index={index} listId={list.id} />
-                                        ))}
-                                    {provided.placeholder}
-                                </div>
-                            )}
-                        </Droppable>
+          
+            {list?.map((list) => (
+                <div className="list-item" key={list.id}>
+                    <div className="list-header">
+
+                        <input
+                            type="text"
+                            className="input-title"
+                            defaultValue={list.name}
+                            onBlur={(e) => handleRenameList(list.id, e.target.value)}
+                        />
+
+                        <button className="delete-list" onClick={() => handleDeleteList(list.id)}>X</button>
+                        <Card listId={list.id} />
                         <AddCardButton listId={list.id} />
                     </div>
-                ))}
-            </DragDropContext>
+                </div>
+            ))}
         </div>
     );
 }

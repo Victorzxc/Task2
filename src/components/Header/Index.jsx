@@ -4,14 +4,16 @@ import './styles.css';
 function Header() {
     return (
         <header>
-            <Link to="/">
+            <Link to="/board">
                 <span className="material-symbols-outlined">
                     home
                 </span>
             </Link>
-            <button onClick={localStorage.removeItem("priton")} >
-                Выйти
-            </button>
+            <Link to="/">
+                <button className="exit" onClick={() => localStorage.removeItem("priton")} >
+                    Выйти
+                </button>
+            </Link>
         </header>
     );
 }

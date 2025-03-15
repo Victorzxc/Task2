@@ -1,14 +1,28 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Draggable } from 'react-beautiful-dnd';
+import { useParams } from 'react-router-dom';
+import {$api} from '../../api.js';
 import { createSelector } from '@reduxjs/toolkit';
 import classNames from 'classnames';
-import { updateCard, deleteCard } from '../../redux/cardsSlice';
+
 import Checkbox from '../Checkbox/Index';
-
 import './styles.css';
+import deleteCard from './DeleteCard';
 
-function Card({ card, index, listId }) {
+
+function Card({ listId }) {
+  const { boardId } = useParams();
+  const [title, setTitle] = useState()
+  const [cardd, setCard] = useState([])
+  useEffect(() => {
+    $api.get(`/task/task?boardId=${boardId}&listId=${listId}`)
+      .then(response => {
+        console.log(response)
+        setCard(response.data)
+        console.table(response.data)
+      });
+  }, [])
+
   const dispatch = useDispatch();
 
   const selectCards = createSelector(
@@ -38,56 +52,54 @@ function Card({ card, index, listId }) {
   };
 
 
+  async function deleteThisCard(e){
+    try {
+      await deleteCard(
+          listId,
+          taskId,
+          boardId
+      );
+    }
+    catch (error) {
+      setTitle('');
+      setShowForm(false);
+    }
+  }
 
   return (
     <div>
+      {cardd?.map((card) => (
 
-      <Draggable draggableId={String(card.id)} index={index} key={card.id} isDragDisabled={card.isDone}>
-        {(provided) => (
-          <div ref={provided.innerRef} {...provided.draggableProps}>
-          
-            <div key={card.id} className={classNames('card-item', { 'card-item-done': card.isDone })}>
 
-              <div className='card-item-elements' {...provided.dragHandleProps}>
-                <CardInput card={card} handleRenameCard={handleRenameCard} isDone={card.isDone} />
-              </div>
+        <div key={card.id} className={classNames('card-item')}>
+    
 
-              <div className="card-actions">
-                <Checkbox id={card.id} isDone={card.isDone} onChange={handleIsDone} />
-                <button
-                  className="delete-card"
-                  onClick={() => handleDeleteCard(card.id)}>X</button>
-              </div>
+          <input
+            type="text"
+            value={card.name}
+            onChange={(event) => setTitle(event.target.value)}
+            onBlur={(e) => handleRenameCard(card.id, e.target.value)}
+            className={classNames('input-title')}
+            disabled={false}
+          />
 
-            </div>
-
+          <div className="card-actions">
+            <Checkbox id={card.id} isDone={card.isDone} onChange={handleIsDone} />
+            <button
+              className="delete-card"
+              onClick={() => deleteCard()}>X</button>
           </div>
-        )}
-      </Draggable>
-      
+
+        </div>
+
+
+
+      ))}
+
+
     </div>
   );
 }
 
-function CardInput({ card, handleRenameCard, isDone }) {
-  const [title, setTitle] = useState('');
-  useEffect(() => {
-    setTitle(card.title)
-  }, [card.title])
 
-  const onChangeCustom = (ev) => {
-    setTitle(ev.target.value)
-  }
-
-  return (
-    <input
-      type="text"
-      value={title}
-      onChange={onChangeCustom}
-      onBlur={(e) => handleRenameCard(card.id, e.target.value)}
-      className={classNames('input-title', { 'input-title-done': isDone })}
-      disabled={isDone}
-    />
-  )
-}
 export default Card;

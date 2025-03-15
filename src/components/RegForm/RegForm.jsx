@@ -32,6 +32,4 @@ export default function RegForm() {
       </div>
     </div>
   )
-
-
 }

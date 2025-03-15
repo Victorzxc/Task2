@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from './styles.module.css'
 import { auth } from './Authorization'
+import { useNavigate } from 'react-router-dom';
 
 export default function AuthForm() {
 
@@ -9,11 +10,12 @@ export default function AuthForm() {
     password: ""
   })
   const [error, setError] = useState("")
+  const navigate = useNavigate();
   async function Auth() {
     try {
       await auth(authData)
       setError("")
-      location.reload()
+      navigate('/board');
     } catch (error) {
       setError(error)
     }

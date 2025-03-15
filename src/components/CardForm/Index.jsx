@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { addCard } from '../../redux/cardsSlice';
 import './styles.css';
+import { adddCard } from './AddCard';
+
 
 
 function CardForm({ listId, setShowForm }) {
@@ -34,10 +36,20 @@ function CardForm({ listId, setShowForm }) {
         setTitle('');
         setError('');
     };
+    async function addNewCard(e) {
+        e.preventDefault();
+        try {
+            await adddCard(title, listId)
+            setTitle('')
+        } catch (error) {
+            setTitle('');
+            setShowForm(false);
+        }
+    }
 
     return (
         <div className="card-form-wrapper">
-            <form onSubmit={handleSubmit} className="card-form">
+            <form onSubmit={addNewCard} className="card-form">
                 <input
                     type="text"
                     placeholder="Карточка"

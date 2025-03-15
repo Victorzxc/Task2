@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addList } from '../../redux/listsSlice';
+// import { addList } from '../../redux/listsSlice';
 import './styles.css';
+import { addList } from './AddList';
 
 function AddListButton({ boardId }) {
    const [title, setTitle] = useState('');
@@ -22,10 +23,24 @@ function AddListButton({ boardId }) {
       }
    };
 
+   async function addNewList(e) {
+      e.preventDefault();
+      try {
+         await addList(title, boardId)
+
+         setTitle('')
+      } catch (error) {
+         setTitle('');
+         setShowForm(false);
+      }
+   }
+
    const handleCloseForm = () => {
       setShowForm(false);
       setTitle('');
    }
+
+
 
    return (
       <div>
@@ -34,7 +49,7 @@ function AddListButton({ boardId }) {
          )}
          {showForm && (
             <div className="list-form-wrapper">
-               <form onSubmit={handleSubmit} className="list-form">
+               <form onSubmit={addNewList} className="list-form">
                   <input type="text" placeholder="Список" value={title} onChange={(e) => setTitle(e.target.value)} />
                   <div className="buttons-wrapper">
                      <button type="submit" className="button save">Сохранить</button>

@@ -1,91 +1,72 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { createSelector } from '@reduxjs/toolkit';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import {$api} from '../../api.js';
 import Card from "../Card/Index";
-import { useEffect } from 'react';
-import axios from 'axios';
 import AddCardButton from '../AddCardButton/Index';
-import { deleteList, updateList } from '../../redux/listsSlice';
-import { moveCard, deleteAllCardsFromList, updateCardOrder } from '../../redux/cardsSlice';
 import './styles.css';
-import { useState } from 'react';
+import {deleteList} from "./DeleteList.js";
+import {putList} from "./PutList.js";
 
 function List({ boardId }) {
-    const [list, setList] = useState([])
+    const [list, setList] = useState([]);
+
     useEffect(() => {
-        axios.get(`http://localhost:7000/list/list?boardId=${boardId}`, {
-            headers: {
-                Authorization: "Bearer " + localStorage.getItem("priton")
-            }
-        })
-            .then(response => {
-                console.log(response)
-                setList(response.data)
-                console.table(response.data)
+        fetchLists();
+    }, [boardId]);
+
+    const fetchLists = async () => {
+        try {
+            const response = await $api.get(`/list/list?boardId=${boardId}`, {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("priton")
+                }
             });
-    }, [])
-
-    const dispatch = useDispatch();
-
-    const selectLists = createSelector(
-        [state => state.lists.lists, (_, boardId) => boardId],
-        (lists, boardId) => lists.filter(list => list.boardId === boardId)
-    );
-    const lists = useSelector(state => selectLists(state, boardId));
-
-    const cards = useSelector(state => state.cards.cards);
-
-    const cardsByList = lists.map(list => ({
-        listId: list.id,
-        cards: cards.filter(card => card.listId === list.id)
-    }));
-
-    const handleOnDragEnd = (result, listId, cards) => {
-        if (!result.destination) return;
-
-        const { source, destination, draggableId } = result;
-
-        if (source.droppableId === destination.droppableId) {
-            const startIndex = source.index;
-            const endIndex = destination.index;
-            const newCards = Array.from(cards);
-            const [removed] = newCards.splice(startIndex, 1);
-            newCards.splice(endIndex, 0, removed);
-
-            dispatch(updateCardOrder({ listId: listId, cardIds: newCards.map(card => card.id) }));
-        } else {
-            dispatch(moveCard({
-                cardId: draggableId,
-                toListId: destination.droppableId
-            }));
+            setList(response.data);
+            console.log("fetchLists: list", response.data);
+        } catch (error) {
+            console.error("Error fetching lists:", error);
         }
     };
 
-    const handleDeleteList = (listId) => {
-        dispatch(deleteList(listId));
-        dispatch(deleteAllCardsFromList(listId));
-    };
+    async function deleteThisList(listId){
+        try {
+            await deleteList(
+                listId,
+                boardId
+            );
+            setList(list.filter(list => list.id !== listId));
+        }
+        catch (error) {
+            console.error("Error deleting list:", error)
+        }
+    }
 
-    const handleRenameList = (listId, title) => {
-        dispatch(updateList({ id: listId, title }));
+    async function putThisList(listId, list, newName){
+        try {
+            const upList = {
+                name: newName,
+                listId: list.id,
+                boardId: boardId
+            };
+            putList(upList);
+
+        } catch (error) {
+            console.error("Error updating list:", error);
+        }
     }
 
     return (
         <div className="lists">
-          
             {list?.map((list) => (
                 <div className="list-item" key={list.id}>
                     <div className="list-header">
-
                         <input
                             type="text"
                             className="input-title"
                             defaultValue={list.name}
-                            onBlur={(e) => handleRenameList(list.id, e.target.value)}
+                            onBlur={(e) => putThisList(list.id, list, e.target.value)}
                         />
-
-                        <button className="delete-list" onClick={() => handleDeleteList(list.id)}>X</button>
+                        <button className="delete-list" onClick={() => deleteThisList(list.id)}>X</button>
                         <Card listId={list.id} />
                         <AddCardButton listId={list.id} />
                     </div>

@@ -5,15 +5,20 @@
 }
 
 .board-item {
-    background-color: #f0f0f0;
-    margin: 20px;
-    border-radius: 7px;
-    width: max-content;
-    padding: 20px;
     display: flex;
-    align-items: baseline;
+    flex-direction: row;
+    background-color: #f0f0f0;
+    align-items: center;
+    border-radius: 5px;
+    padding: 10px;
 }
-  
+.board-item>button{
+    background-color: #61d3ba;
+    margin: 0 10px;
+    border-radius: 5px;
+    height: 30px;
+}
+
 .board-item:hover {
     box-shadow: 0 0 5px 5px #808080;
     transition: 70ms;
@@ -23,4 +28,14 @@
     cursor: pointer;
     border: none;
     background: transparent;
-  }
+    padding: 20px;
+}
+.board-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #f0f0f0;
+    margin: 20px;
+    border-radius: 7px;
+    width: max-content;
+    align-items: center;
+}

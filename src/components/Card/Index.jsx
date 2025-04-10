@@ -1,105 +1,84 @@
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import {$api} from '../../api.js';
-import { createSelector } from '@reduxjs/toolkit';
 import classNames from 'classnames';
-
 import Checkbox from '../Checkbox/Index';
 import './styles.css';
-import deleteCard from './DeleteCard';
+import {deleteCard} from "./DeleteCard.js";
+import {putCard} from "./PutCard.js";
 
 
 function Card({ listId }) {
   const { boardId } = useParams();
-  const [title, setTitle] = useState()
   const [cardd, setCard] = useState([])
+
   useEffect(() => {
-    $api.get(`/task/task?boardId=${boardId}&listId=${listId}`)
-      .then(response => {
-        console.log(response)
-        setCard(response.data)
-        console.table(response.data)
-      });
-  }, [])
+    fetchCards();
+  }, [boardId, listId])
 
-  const dispatch = useDispatch();
-
-  const selectCards = createSelector(
-    [state => state.cards.cards, (_, listId) => listId],
-    (cards, listId) => cards.filter(card => card.listId === listId)
-
-  );
-
-
-  const cards = useSelector(state => selectCards(state, listId));
-
-  const handleRenameCard = (id, title) => {
-
-    const cardToUpdate = cards.find(card => card.id === id);
-    if (cardToUpdate) {
-      dispatch(updateCard({ id, title, isDone: cardToUpdate.isDone }));
+  const fetchCards = async () => {
+    try {
+      const response = await $api.get(`/task/task?boardId=${boardId}&listId=${listId}`);
+      console.log(response);
+      setCard(response.data);
+      console.table(response.data);
+    } catch (error) {
+      console.error("Error fetching cards:", error);
     }
   };
 
-
-  const handleIsDone = (id, isDone) => {
-    dispatch(updateCard({ id, isDone }));
-  };
-
-  const handleDeleteCard = (id) => {
-    dispatch(deleteCard(id));
-  };
-
-
-  async function deleteThisCard(e){
+  async function deleteThisCard(cardId){
     try {
       await deleteCard(
+          cardId,
           listId,
-          taskId,
           boardId
       );
+      setCard(cardd.filter(card => card.id !== cardId));
     }
     catch (error) {
-      setTitle('');
-      setShowForm(false);
+      console.error("Error deleting card:", error)
+    }
+  }
+
+  async function putThisCard(card, newName){
+    try {
+      const potter = {
+        name: newName,
+        isActive: card.isActive,
+        taskId: card.id,
+        listId: listId,
+        boardId: boardId
+      };
+
+      putCard(potter);
+
+    } catch (error) {
+      console.error("Error updating card:", error);
     }
   }
 
   return (
-    <div>
-      {cardd?.map((card) => (
-
-
-        <div key={card.id} className={classNames('card-item')}>
-    
-
-          <input
-            type="text"
-            value={card.name}
-            onChange={(event) => setTitle(event.target.value)}
-            onBlur={(e) => handleRenameCard(card.id, e.target.value)}
-            className={classNames('input-title')}
-            disabled={false}
-          />
-
-          <div className="card-actions">
-            <Checkbox id={card.id} isDone={card.isDone} onChange={handleIsDone} />
-            <button
-              className="delete-card"
-              onClick={() => deleteCard()}>X</button>
-          </div>
-
-        </div>
-
-
-
-      ))}
-
-
-    </div>
+      <div>
+        {cardd?.map((card) => (
+            <div key={card.id} className={classNames('card-item')}>
+              <input
+                  type="text"
+                  defaultValue={card.name}
+                  onBlur={(e) => putThisCard(card, e.target.value)}
+                  className={classNames('input-title')}
+                  disabled={false}
+              />
+              <div className="card-actions">
+                <Checkbox id={card.id} isDone={card.isDone} onChange={() => {}} />
+                <button
+                    className="delete-card"
+                    onClick={() => deleteThisCard(card.id)}>X</button>
+              </div>
+            </div>
+        ))}
+      </div>
   );
 }
-
 
 export default Card;

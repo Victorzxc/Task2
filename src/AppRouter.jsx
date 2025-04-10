@@ -1,31 +1,28 @@
-import React, { useEffect } from 'react';
+
 import { Routes, Route } from 'react-router-dom';
 import BoardList from './components/BoardList/Index';
 import BoardCard from './components/BoardCard/Index';
 import Header from "./components/Header/Index";
 import AuthPage from './components/AuthPage/AuthPage';
-import { useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import { HOME_PATH, BOARD_LIST_PATH, BOARD_DETAIL_PATH } from './constants/routes';
 
 
 function AppRouter() {
-  const [isLog, setIsLog] = useState(false);
-  useEffect(() => {
-    setIsLog(localStorage.getItem('priton') ? true : false)
-  }, [])
+    const isLog = localStorage.getItem('priton');
   return (
     <>
       <Header />
       <Routes>
-        <Route path='/'
+        <Route path={HOME_PATH}
           element={
-            isLog ? <Navigate to={"/board"} replace /> : <AuthPage />
+            isLog ? <Navigate to={BOARD_LIST_PATH} replace /> : <AuthPage />
           }
         />
         <Route
-          path="/board" element={<BoardList />} />
+          path={BOARD_LIST_PATH} element={<BoardList />} />
         <Route
-          path="/board/:boardId" element={<BoardCard />} />
+          path={BOARD_DETAIL_PATH} element={<BoardCard />} />
       </Routes>
     </>
   );

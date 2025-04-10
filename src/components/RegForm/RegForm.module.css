@@ -1,7 +1,7 @@
 .overlay{
     position: absolute;
     inset: 0;
-    background-color: hsla(0, 0%, 0%, 0.444);
+    background-color: black;
 
 
 }
@@ -13,7 +13,6 @@
     transform: translate(-50%, -50%);
     background-color: #fff;
     width: 450px;
-
     display: flex;
     flex-direction: column;
     align-items: center;

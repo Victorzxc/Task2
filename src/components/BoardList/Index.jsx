@@ -1,56 +1,57 @@
-import React, { useState } from 'react';
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { data, Link } from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import BoardForm from "../BoardForm/Index";
-import { deleteBoard } from "../../redux/boardsSlice";
 import './styles.css';
-
-
+import { deleteBoard } from "./DeleteBoard.js";
+import RenameBoard from "./RenameBoard.jsx";
 
 
 function BoardList() {
-  const boards = useSelector((state) => state.boards.boards);
-  const dispatch = useDispatch();
+    const [listBoard, setListBoard] = useState([]);
+    const { boardId } = useParams();
+    async function deleteThisBoard(boardId) {
+        try {
+            await deleteBoard(boardId);
+            setListBoard(listBoard.filter(board => board.id !== boardId));
+        } catch (error) {
+            console.error("Error deleting board:", error);
+        }
+    }
 
-  const [listBoard, setListBoard] = useState([])
+    useEffect(() => {
+        fetchBoards();
+    }, []);
 
-  const handleDeleteBoard = (id) => {
-    dispatch(deleteBoard(id))
-  }
+    const fetchBoards = async () => {
+        try {
+            const response = await axios.get("http://localhost:7000/board/boards", {
+                headers: {
+                    Authorization: "Bearer " + localStorage.getItem("priton")
+                }
+            });
+            setListBoard(response.data);
+        } catch (error) {
+            console.error("Error fetching boards:", error);
+        }
+    };
 
-  useEffect(() => {
-    axios.get("http://localhost:7000/board/boards", {
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("priton")
-      }
-    })
-      .then(response => {
-        console.log(response)
-        setListBoard(response.data)
-        console.table(response.data)
-      });
-  }, [])
-  
-  return (
-    <div className="board-list">
+    return (
+        <div className="board-list">
+            <BoardForm />
+            <div className="board-items">
+                {listBoard?.map((board) => (
+                    <div  key={board.id} className="board-container">
+                        <RenameBoard
+                            board={board}
+                        />
+                        <button onClick={() => deleteThisBoard(board.id)} className="delete-board">X</button>
+                    </div>
+                ))}
+            </div>
 
-      <BoardForm />
-
-      <div className="board-items">
-        {listBoard?.map((board) => (
-          <div key={board.id} className="board-item">
-            <Link to={`/board/${board.id}`}>
-              {board.name}
-            </Link>
-            <button onClick={() => handleDeleteBoard(board.id)} className="delete-board">X</button>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+        </div>
+    );
 }
-
 
 export default BoardList;

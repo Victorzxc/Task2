@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import List from '../List/Index';
@@ -9,7 +9,7 @@ import axios from 'axios';
 function BoardCard() {
     const { boardId } = useParams();
     const boards = useSelector(state => state.boards.boards);
-    const board = boards.find(board => board.id === boardId); 
+    const [boardName, setBoardName] = useState('Loading...');
 
     useEffect(() => {
         console.log("Board ID in BoardCard:", boardId);
@@ -22,17 +22,24 @@ function BoardCard() {
             }
         })
             .then(response => {
-                console.log(response)
+                console.log(response.data)
 
-    
-            });
-    }, []);
+                const currentBoard = response.data.find(board => board.id === boardId);
+
+                if (currentBoard) {
+                    setBoardName(currentBoard.name);
+                } else {
+                    setBoardName('Board not found');
+                }
+            })
+
+    }, [boardId]);
 
     return (
         <div className="board-card">
             <div>
                 <h2>
-                    {board ? board.title : 'Loading...'}  
+                    {boardName}
                 </h2>
             </div>
             <div>

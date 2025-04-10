@@ -9,8 +9,10 @@ export default function AuthPage() {
 
   return (
     <div className={styles.AuthPage}>
-        <button style={{ position: 'relative', zIndex: 10 }} onClick={() => setIsOpen(!isOpen)}>Сменить окно</button>
+        <button style={{ position: 'relative', zIndex: 10 }} onClick={() => setIsOpen(!isOpen)}>{isOpen ? "Регистрация" : "Авторизация"}</button>
         { isOpen ? <AuthForm/> : <RegForm/> }
+
     </div>
+
   )
 }

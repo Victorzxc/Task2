@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './styles.module.css'
 import { auth } from './Authorization'
 import { useNavigate } from 'react-router-dom';
@@ -11,6 +11,13 @@ export default function AuthForm() {
   })
   const [error, setError] = useState("")
   const navigate = useNavigate();
+  const handleEmailChange = (event) => {
+    setAuthData({ ...authData, email: event.target.value });
+  };
+
+  const handlePasswordChange = (event) => {
+    setAuthData({ ...authData, password: event.target.value });
+  };
   async function Auth() {
     try {
       await auth(authData)
@@ -25,8 +32,18 @@ export default function AuthForm() {
     <div className={styles.overlay}>
       <div className={styles.modal}>
         <h1>Авторизация</h1>
-        <input value={authData.email} onChange={(event) => setAuthData({ ...authData, email: event.target.value })} placeholder='Почта' type="text" />
-        <input value={authData.password} onChange={(event) => setAuthData({ ...authData, password: event.target.value })} placeholder='Пароль' type="password" />
+        <input
+            value={authData.email}
+            onChange={handleEmailChange}
+            placeholder='Почта'
+            type="text"
+        />
+        <input
+            value={authData.password}
+            onChange={handlePasswordChange}
+            placeholder='Пароль'
+            type="password"
+        />
         {error && <p style={{ color: 'red' }} >{error}</p>}
         <button onClick={Auth}>Войти</button>
       </div>
